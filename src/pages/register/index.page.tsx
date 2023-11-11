@@ -1,10 +1,14 @@
+import { useEffect } from 'react'
 import { Button, Heading, MultiStep, Text, TextInput } from '@bonapaz-ui/react'
 import { ArrowRight } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-
-import { Container, Form, FormError, Header } from './styles'
+import { AxiosError } from 'axios'
+import { useRouter } from 'next/router'
 import { zodResolver } from '@hookform/resolvers/zod'
+
+import { api } from '../../lib/axios'
+import { Container, Form, FormError, Header } from './styles'
 
 const registerFormSchema = z.object({
   username: z
@@ -25,13 +29,36 @@ export default function Register() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerFormSchema),
   })
 
-  function handleRegister(data: RegisterFormData) {
-    console.log(data)
+  const router = useRouter()
+
+  useEffect(() => {
+    if (router.query.username) {
+      setValue('username', String(router.query.username))
+    }
+  }, [router.query?.username, setValue])
+
+  async function handleRegister(data: RegisterFormData) {
+    try {
+      await api.post('/users', {
+        name: data.name,
+        username: data.username,
+      })
+
+      await router.push('/register/connect-calendar')
+    } catch (err) {
+      if (err instanceof AxiosError && err?.response?.data?.message) {
+        alert(err.response.data.message)
+        return
+      }
+
+      console.error(err)
+    }
   }
 
   return (
