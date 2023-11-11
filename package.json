@@ -9,9 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@bonapaz-ui/react": "^3.0.0",
+    "@bonapaz-ui/react": "^5.0.0",
     "@hookform/resolvers": "^3.3.2",
+    "@prisma/client": "^5.5.2",
+    "axios": "^1.6.1",
     "next": "14.0.2",
+    "next-auth": "^4.24.5",
+    "nookies": "^2.5.2",
     "phosphor-react": "^1.4.1",
     "react": "^18",
     "react-dom": "^18",
@@ -20,11 +24,13 @@
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.1.0",
+    "@types/cookie": "^0.5.4",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.0.2",
+    "prisma": "^5.5.2",
     "typescript": "^5"
   }
 }
