@@ -1,4 +1,4 @@
-import { globalCss } from "@bonapaz-ui/react";
+import { globalCss } from '@bonapaz-ui/react'
 
 export const globalStyles = globalCss({
   '*': {
